@@ -1,87 +1,57 @@
 "use client"
 
-import { useRef, useState, Suspense } from "react"
+import { useRef, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Environment, useGLTF } from "@react-three/drei"
+import { OrbitControls, Environment } from "@react-three/drei"
 import type * as THREE from "three"
 
-/*
-* NOTE: You will need to provide 3D models for each service.
-* Create or download models and save them in /public/models/
-* Example filenames used below:
-* - /models/warehouse-small.gltf (for Warehousing)
-* - /models/inventory-shelves.gltf (for Inventory Management)
-* - /models/conveyor-belt.gltf (for Order Fulfillment)
-* - /models/truck.gltf (for Forward Logistics)
-* - /models/return-box.gltf (for Reverse Logistics)
-* - /models/delivery-van.gltf (for Last Mile Delivery)
-*/
-
-// A re-usable component to load and animate a model
-function LogisticModel({ modelPath, scale = 1 }: { modelPath: string, scale?: number }) {
-  const { scene } = useGLTF(modelPath)
-  const modelRef = useRef<THREE.Group>(null)
-
-  // Animate the loaded model
-  useFrame((state) => {
-    if (modelRef.current) {
-      modelRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 0.1
-      modelRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.2
-      modelRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.5) * 0.2
-    }
-  })
-
-  // Clone and prepare the model
-  const clonedScene = scene.clone()
-  clonedScene.traverse((child) => {
-    if ((child as THREE.Mesh).isMesh) {
-      child.castShadow = true
-      child.receiveShadow = true
-    }
-  })
-
-  return (
-    <group ref={modelRef}>
-      <primitive object={clonedScene} scale={scale} />
-    </group>
-  )
-}
-
-// This component will now conditionally render a different model based on the serviceIndex
-function ServiceScene({ serviceIndex }: { serviceIndex: number }) {
+function WarehouseBoxes({ serviceIndex }: { serviceIndex: number }) {
   const groupRef = useRef<THREE.Group>(null)
+  const boxesRef = useRef<THREE.Mesh[]>([])
 
-  useFrame(() => {
+  useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.002
     }
+    boxesRef.current.forEach((box, i) => {
+      if (box) {
+        box.position.y += Math.sin(state.clock.elapsedTime * 1.5 + i) * 0.015
+        box.rotation.x += 0.002 + serviceIndex * 0.0005
+        box.rotation.z += 0.001
+        box.scale.set(
+          1 + Math.sin(state.clock.elapsedTime * 2 + i * 0.5) * 0.05,
+          1 + Math.sin(state.clock.elapsedTime * 2 + i * 0.5) * 0.05,
+          1 + Math.sin(state.clock.elapsedTime * 2 + i * 0.5) * 0.05,
+        )
+      }
+    })
   })
-
-  // Array of model paths corresponding to the service index
-  const serviceModels = [
-    { path: "/models/warehouse.gltf", scale: 0.8 }, // 0: Warehousing
-    // { path: "/models/inventory-shelves.gltf", scale: 1.2 }, // 1: Inventory Management
-    // { path: "/models/conveyor-belt.gltf", scale: 1 }, // 2: Order Fulfillment
-    // { path: "/models/truck.gltf", scale: 1 }, // 3: Forward Logistics
-    // { path: "/models/return-box.gltf", scale: 1.5 }, // 4: Reverse Logistics
-    // { path: "/models/delivery-van.gltf", scale: 1.1 }, // 5: Last Mile Delivery
-  ]
-
-  // Get the current model based on the activeService index
-  const currentModel = serviceModels[serviceIndex] || serviceModels[0]
 
   return (
     <group ref={groupRef}>
-      <LogisticModel 
-        key={serviceIndex} // Add a key to force re-render on change
-        modelPath={currentModel.path} 
-        scale={currentModel.scale} 
-      />
+      {[0, 1, 2].map((i) => (
+        <mesh
+          key={i}
+          position={[i * 3 - 3, 0, 0]}
+          castShadow
+          ref={(el) => {
+            if (el) boxesRef.current[i] = el
+          }}
+        >
+          <boxGeometry args={[2, 2.5, 2]} />
+          <meshStandardMaterial
+            color={`hsl(${264 + i * 30 + serviceIndex * 15}, 70%, 50%)`}
+            metalness={0.4}
+            roughness={0.6}
+            emissive={`hsl(${264 + i * 30 + serviceIndex * 15}, 60%, 30%)`}
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+      ))}
     </group>
   )
 }
 
-// ServiceCard component (No changes here)
 interface ServiceCardProps {
   title: string
   description: string
@@ -182,14 +152,9 @@ export default function Services() {
         <div className="relative w-full h-96 rounded-2xl border border-border overflow-hidden bg-gradient-to-br from-slate-950/80 to-black/50 backdrop-blur-sm">
           <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none z-10" />
 
-          <Canvas camera={{ position: [0, 3, 8], fov: 50 }} shadows gl={{ antialias: true }}>
+          <Canvas camera={{ position: [0, 0, 8], fov: 50 }} shadows gl={{ antialias: true }}>
             <color attach="background" args={["#0a0a0a"]} />
-            
-            {/* Use Suspense for model loading */}
-            <Suspense fallback={null}>
-              <ServiceScene serviceIndex={activeService} />
-            </Suspense>
-            
+            <WarehouseBoxes serviceIndex={activeService} />
             <OrbitControls autoRotate autoRotateSpeed={3} enableZoom={true} enablePan={false} dampingFactor={0.05} />
             <Environment preset="studio" intensity={0.7} />
             <ambientLight intensity={0.6} color="#ffffff" />
@@ -198,7 +163,7 @@ export default function Services() {
             <pointLight position={[0, -5, 8]} intensity={0.3} color="#ec4899" />
           </Canvas>
 
-          {/* Service info overlay (No changes here) */}
+          {/* Service info overlay */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 rounded-b-2xl z-20">
             <h3 className="text-xl font-bold text-white mb-1">{services[activeService].title}</h3>
             <p className="text-sm text-slate-300">{services[activeService].description}</p>
@@ -209,7 +174,7 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Service features list (No changes here) */}
+        {/* Service features list */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             { title: "Scalable Solutions", description: "Grow your logistics with our flexible infrastructure" },
