@@ -59,12 +59,12 @@ function ServiceScene({ serviceIndex }: { serviceIndex: number }) {
 
   // Array of model paths corresponding to the service index
   const serviceModels = [
-    { path: "/models/warehouse-small.gltf", scale: 0.8 }, // 0: Warehousing
-    { path: "/models/inventory-shelves.gltf", scale: 1.2 }, // 1: Inventory Management
-    { path: "/models/conveyor-belt.gltf", scale: 1 }, // 2: Order Fulfillment
-    { path: "/models/truck.gltf", scale: 1 }, // 3: Forward Logistics
-    { path: "/models/return-box.gltf", scale: 1.5 }, // 4: Reverse Logistics
-    { path: "/models/delivery-van.gltf", scale: 1.1 }, // 5: Last Mile Delivery
+    { path: "/models/warehouse.gltf", scale: 0.8 }, // 0: Warehousing
+    // { path: "/models/inventory-shelves.gltf", scale: 1.2 }, // 1: Inventory Management
+    // { path: "/models/conveyor-belt.gltf", scale: 1 }, // 2: Order Fulfillment
+    // { path: "/models/truck.gltf", scale: 1 }, // 3: Forward Logistics
+    // { path: "/models/return-box.gltf", scale: 1.5 }, // 4: Reverse Logistics
+    // { path: "/models/delivery-van.gltf", scale: 1.1 }, // 5: Last Mile Delivery
   ]
 
   // Get the current model based on the activeService index
