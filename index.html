@@ -3,343 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R2G Logistics - Your Reliable Global Partner</title>
-    
-    <style>
-        /* --- Basic Reset & Typography --- */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1, h2, h3 {
-            color: #1a237e; /* Dark Blue */
-            font-weight: 700;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #00bfa5; /* Teal Accent */
-            display: inline-block;
-        }
-        
-        section {
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        /* --- Header & Navigation --- */
-        header {
-            background-color: #ffffff;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #1a237e;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: #00bfa5; /* Teal Accent */
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav li {
-            margin-left: 2rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #00bfa5;
-        }
-
-        /* --- Hero Section --- */
-        #hero {
-            background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('https://images.unsplash.com/photo-1577563908411-5ab7003c2d43?auto=format&fit=crop&w=1500&q=80'); /* Placeholder image */
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 180px 0 120px 0; /* Extra padding to account for fixed header */
-            text-align: left;
-        }
-
-        #hero h1 {
-            font-size: 3.5rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        #hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .cta-button {
-            background-color: #00bfa5;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #008f7a;
-        }
-
-        /* --- Services Section --- */
-        #services {
-            background-color: #ffffff;
-        }
-        
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-
-        .service-card {
-            background-color: #f4f7f6;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-
-        .service-card h3 {
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-        
-        /* --- Tracking Section --- */
-        #tracking {
-            background-color: #1a237e; /* Dark Blue */
-            color: white;
-        }
-
-        #tracking h2 {
-            color: white;
-            border-color: #00bfa5;
-        }
-        
-        #tracking p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .tracking-form {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .tracking-form input[type="text"] {
-            flex-grow: 1;
-            padding: 15px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .tracking-form button {
-            background-color: #00bfa5;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .tracking-form button:hover {
-            background-color: #008f7a;
-        }
-
-        /* --- About Section --- */
-        #about {
-            background-color: #ffffff;
-        }
-
-        #about p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            text-align: center;
-            line-height: 1.8;
-        }
-        
-        /* --- Footer --- */
-        footer {
-            background-color: #1d1d1d;
-            color: #aaa;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-    </style>
+    <title>Ready 2 Go Logistic Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <a href="#hero" class="logo">R<span>2</span>G Logistics</a>
-            <nav>
-                <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#tracking">Track</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#contact" class="cta-button" style="color:white;">Get a Quote</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#hero" class="logo">Ready 2 Go</a>
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#clients" class="nav-link">Clients</a></li>
+                <li><a href="#contact" class="nav-link btn">Contact Us</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </nav>
     </header>
 
     <main>
-
-        <section id="hero">
-            <div class="container">
-                <h1>Delivering Your World, On Time.</h1>
-                <p>
-                    R2G Logistics offers fast, reliable, and cost-effective supply chain
-                    solutions. From local road freight to global air and sea cargo.
-                </p>
-                <a href="#tracking" class="cta-button">Track Your Shipment</a>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1 class="animate-on-scroll">READY TO GO LOGISTIC SERVICES</h1>
+                <p class="animate-on-scroll">Your partner in end-to-end warehousing and logistics solutions.</p>
+                <a href="#services" class="btn btn-primary animate-on-scroll">Our Services</a>
             </div>
         </section>
 
-        <section id="services">
+        <section id="about" class="about container">
+            <h2 class="section-title animate-on-scroll">Introduction</h2>
+            <div class="about-grid">
+                <div class="about-text animate-on-scroll">
+                    <h3>Who We Are</h3>
+                    <p><strong>Ready 2 Go Logistic Services</strong> was established in <strong>July 2017</strong> with a clear vision to provide top-tier logistic solutions. Under the leadership of our Managing Director, <strong>Mr. Arvind Yadav</strong>, we have grown into a trusted name in the industry.</p>
+                    <p>Our presence spans across <strong>13 Locations & 2 Branches</strong>, enabling us to deliver reliable and efficient services to our clients nationwide.</p>
+                </div>
+                <div class="about-image animate-on-scroll">
+                    <img src="https://via.placeholder.com/500x350.png?text=Our+Warehouse" alt="Warehouse">
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
             <div class="container">
-                <h2>Our Services</h2>
+                <h2 class="section-title animate-on-scroll">Our Lines of Business</h2>
                 <div class="service-grid">
-                    <div class="service-card">
-                        <h3>Air Freight</h3>
-                        <p>Fast and reliable international air cargo for your time-sensitive shipments. We connect major global hubs with precision.</p>
+                    <div class="service-card animate-on-scroll">
+                        <h3>Warehousing & Logistics (End to End)</h3>
+                        <p>Comprehensive, end-to-end management of your warehousing and logistics chain.</p>
                     </div>
-                    <div class="service-card">
-                        <h3>Sea Freight</h3>
-                        <p>Cost-effective Full Container Load (FCL) and Less than Container Load (LCL) options for large-volume international shipping.</p>
+                    <div class="service-card animate-on-scroll">
+                        <h3>Domestic Transport & Last Mile Delivery</h3>
+                        <p>Reliable domestic transport and specialized last-mile delivery to ensure your goods reach their final destination.</p>
                     </div>
-                    <div class="service-card">
-                        <h3>Road Transport</h3>
-                        <p>Comprehensive domestic trucking and distribution network ensuring your goods reach their destination safely and on schedule.</p>
+                    <div class="service-card animate-on-scroll">
+                        <h3>3PL Warehousing Services</h3>
+                        <p>Expert third-party logistics (3PL) services, providing scalable and flexible warehousing solutions.</p>
                     </div>
-                    <div class="service-card">
-                        <h3>Warehousing</h3>
-                        <p>Secure, scalable, and strategically-located warehousing solutions, including inventory management and order fulfillment.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Customs Brokerage</h3>
-                        <p>Our expert team navigates complex customs regulations to ensure your shipments clear borders without delay.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Supply Chain Solutions</h3>
-                        <p>End-to-end management of your entire supply chain, from procurement to final delivery, optimized for efficiency.</p>
+                    <div class="service-card animate-on-scroll">
+                        <h3>Value Added Services</h3>
+                        <p>A suite of value-added services to complement our core offerings and meet your unique business needs.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="tracking">
-            <div class="container">
-                <h2>Track Your Shipment</h2>
-                <p>Enter your tracking number (e.g., R2G123456789) to see the real-time status of your delivery.</p>
-                <form class="tracking-form" onsubmit="alert('Tracking functionality requires a backend. This is a demo.'); return false;">
-                    <input type="text" placeholder="Enter your tracking number..." required>
-                    <button type="submit">Track</button>
-                </form>
+        <section id="clients" class="clients container">
+            <h2 class="section-title animate-on-scroll">Ready 2 Go - Clients</h2>
+            <p class="animate-on-scroll">We are proud to serve a diverse range of clients, including industry leaders like:</p>
+            <div class="client-logo animate-on-scroll">
+                <strong>Univision Foods</strong>
             </div>
-        </section>
-        
-        <section id="about">
-            <div class="container">
-                <h2>About R2G Logistics</h2>
-                <p>
-                    Founded on the principle of reliability, R2G Logistics has grown into a trusted partner for businesses worldwide. 
-                    We believe in bridging distances, not just geographically but in service. Our team of logistics experts is 
-                    dedicated to providing personalized, efficient, and transparent solutions. We leverage cutting-edge technology 
-                    to give you full visibility and control over your supply chain.
-                </p>
-            </div>
+            <p class="animate-on-scroll">(and other leading companies in the sector)</p>
         </section>
 
-        <section id="contact" style="background-color: #ffffff;">
-             <div class="container">
-                <h2>Get in Touch</h2>
-                <p style="max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
-                    Ready to optimize your supply chain? Contact our team today for a custom quote.
-                </p>
-                <a href="mailto:sales@r2g-logistics.com" class="cta-button">Request a Quote</a>
-             </div>
-        </section>
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Contact Us</h2>
+                <p class="section-subtitle animate-on-scroll">Get in touch with our team. We're ready to help.</p>
+                <div class="contact-grid">
+                    <div class="contact-info animate-on-scroll">
+                        <h3>Contact Details</h3>
+                        <p><strong>Primary Contact:</strong><br>Mr. Ashok Kumar<br>
+                           <a href="tel:9582322276">+91 95823-22276</a></p>
+                        
+                        <p><strong>Email:</strong><br>
+                           <a href="mailto:management@readytogologistic.com">management@readytogologistic.com</a></p>
+                           
+                        <p><strong>Website:</strong><br>
+                           <a href="https_www_readytogologistic_com" target="_blank">www.readytogologistic.com</a></p>
 
+                        <h3>Our Offices</h3>
+                        <p><strong>Zonal Office (North):</strong><br>
+                           Katria Complex, Ground Floor, Doltabad, Gurgaon - 122001, Haryana, INDIA</p>
+
+                        <p><strong>Registered Office:</strong><br>
+                           Baslambi, Near Shiv Mandir, Baslambi, Gurgaon - 122503, Haryana, INDIA</p>
+                    </div>
+                    
+                    <form action="#" class="contact-form animate-on-scroll">
+                        <h3>Send Us a Message</h3>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 R2G Logistics. All Rights Reserved.</p>
-            <p>123 Logistics Way, Jodhpur, Rajasthan, India</p>
+            <p>&copy; 2025 Ready 2 Go Logistic Services. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
