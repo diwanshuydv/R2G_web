@@ -11,7 +11,7 @@ import type * as THREE from "three"
 * You can find free models on sites like Sketchfab (make sure to check licenses).
 */
 function WarehouseScene() {
-  const { scene } = useGLTF("/models/warehouse-scene.gltf")
+  const { scene } = useGLTF("/models/warehouse.gltf")
   const modelRef = useRef<THREE.Group>(null)
   const [isHovered, setIsHovered] = useState(false)
 
